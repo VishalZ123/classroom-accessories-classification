@@ -1,4 +1,3 @@
-# load model_1.pt and make a streamlit app
 import torch
 import streamlit as st
 from PIL import Image
