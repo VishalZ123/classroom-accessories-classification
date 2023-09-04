@@ -48,12 +48,16 @@ def predict(image):
         output = model(image)
         _, predicted = torch.max(output.data, 1)
         return predicted.item()
-    
+
+predictions_map = {0: 'Bag', 1: "Book", 2: "Water Bottle", 3: "Laptop", 4: "Question Paper"}
+
 st.title("Classroom Accessories Classification")
 st.write("This is a simple image classification web app to predict the item out the following 5 items:- Bag, Water Bottle, Laptop, Question Paper & Books.")
 file = st.file_uploader("Please upload an image file", type=["jpg", "png", "jpeg"])
 if file:
     image = Image.open(file)
-    st.image(image, width=100)
-    predictions = predict(file)
-    st.write(predictions)
+    st.image(image, width=300)
+    with st.spinner("Predicting..."):
+        predictions = predict(file)
+        print(type(predictions))
+        st.write(predictions_map[predictions])
