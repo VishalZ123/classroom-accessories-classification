@@ -36,17 +36,14 @@ class NewModel(nn.Module):
 transform = transforms.Compose([transforms.Resize((128, 128)),
                                 transforms.ToTensor(), 
                                 transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 model = NewModel()
-model.load_state_dict(torch.load('model_2.pt'))
-model.to(device)
+model.load_state_dict(torch.load('model_2.pt'), map_location='cpu')
 model.eval()
 def predict(image):
     image = Image.open(image)
     image = transform(image)
     image = image.unsqueeze(0)
-    image = image.to(device)
     with torch.no_grad():
         output = model(image)
         _, predicted = torch.max(output.data, 1)
