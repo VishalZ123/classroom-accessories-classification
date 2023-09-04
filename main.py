@@ -38,7 +38,7 @@ transform = transforms.Compose([transforms.Resize((128, 128)),
                                 transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
 
 model = NewModel()
-model.load_state_dict(torch.load('model_2.pt'), map_location='cpu')
+model.load_state_dict(torch.load('model_2.pt', map_location='cpu'))
 model.eval()
 def predict(image):
     image = Image.open(image)
